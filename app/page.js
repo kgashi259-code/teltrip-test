@@ -257,34 +257,19 @@ export default function Page() {
           ))}
 
           {filtered.map((r, i) => (
-            <Fragment key={r.iccid || i}>
-              <div style={cellBox(i)}>{r.iccid ?? ""}</div>
-              <div style={cellBox(i)}>{r.imsi ?? ""}</div>
-              <div style={cellBox(i)}>{r.phoneNumber ?? ""}</div>
-              <div style={cellBox(i)}>{r.subscriberStatus ?? ""}</div>
-              <div style={cellBox(i)}>{r.simStatus ?? ""}</div>
-              <div style={cellBox(i)}>{String(r.esim ?? "")}</div>
-              <div style={cellBox(i)}>{r.activationCode ?? ""}</div>
-              <div style={cellBox(i)}>{fmtDT(r.activationDate)}</div>
-              <div style={cellBox(i)}>{fmtDT(r.lastUsageDate)}</div>
-              <div style={cellBox(i)}>{String(r.prepaid ?? "")}</div>
-              <div style={cellBox(i)}>{r.balance ?? ""}</div>
-              <div style={cellBox(i)}>{r.account ?? ""}</div>
-              <div style={cellBox(i)}>{r.reseller ?? ""}</div>
-              <div style={cellBox(i)}>{r.lastMcc ?? ""}</div>
-              <div style={cellBox(i)}>{r.lastMnc ?? ""}</div>
-              <div style={cellBox(i)}>{r.prepaidpackagetemplatename ?? ""}</div>
-              <div style={cellBox(i)}>{r.prepaidpackagetemplateid ?? ""}</div>
-              <div style={cellBox(i)}>{fmtDT(r.tsactivationutc)}</div>
-              <div style={cellBox(i)}>{fmtDT(r.tsexpirationutc)}</div>
-              <div style={cellBox(i)}>{r.pckdatabyte ?? ""}</div>
-              <div style={cellBox(i)}>{r.useddatabyte ?? ""}</div>
-              <div style={cellBox(i)}>{bytesToGB(r.pckdatabyte)}</div>
-              <div style={cellBox(i)}>{bytesToGB(r.useddatabyte)}</div>
-              <div style={cellBox(i)}>{money(r.subscriberOneTimeCost)}</div>
-              <div style={cellBox(i)}>{bytesToGB(r.totalBytesSinceJun1)}</div>
-              <div style={cellBox(i)}>{money(r.resellerCostSinceJun1)}</div>
-            </Fragment>
+  <Fragment key={r.iccid || i}>
+    <div style={cellBox(i)}>{r.iccid ?? ""}</div>
+    <div style={cellBox(i)}>{fmtDT(r.lastUsageDate)}</div>
+    <div style={cellBox(i)}>{r.prepaidpackagetemplatename ?? ""}</div>
+    <div style={cellBox(i)}>{money(r.cost)}</div>
+    <div style={cellBox(i)}>{r.pckdatabyte ?? ""}</div>
+    <div style={cellBox(i)}>{r.useddatabyte ?? ""}</div>
+    <div style={cellBox(i)}>{fmtDT(r.tsactivationutc)}</div>
+    <div style={cellBox(i)}>{fmtDT(r.tsexpirationutc)}</div>
+    <div style={cellBox(i)}>{money(r.resellerCost)}</div>
+  </Fragment>
+))}
+
           ))}
         </div>
       </div>
