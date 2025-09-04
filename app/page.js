@@ -41,19 +41,23 @@ export default function Page() {
 
   const logoSrc = process.env.NEXT_PUBLIC_LOGO_URL || "/logo.png";
 
-  // ---- load accounts (for dropdown) ----
-  async function loadAccounts() {
-    const url = "/api/accounts";
-    const r = await fetch(url, { cache: "no-store" });
-    const t = await r.text(); let j = null; try { j = t ? JSON.parse(t) : null; } catch {}
-    if (!r.ok) throw new Error(`HTTP ${r.status} ${r.statusText}${t ? " :: " + t.slice(0,300) : ""}`);
-    const list = j?.accounts || [];
-    setAccounts(list);
-    // if current accountId not in list, pick first
-    if (!list.find(a => String(a.id) === String(accountId)) && list.length) {
-      setAccountId(String(list[0].id));
-    }
+  // app/page.js  — replace the whole loadAccounts() with this
+async function loadAccounts() {
+  const url = "/api/accounts";
+  const r = await fetch(url, { cache: "no-store" });
+  const t = await r.text(); let j = null; try { j = t ? JSON.parse(t) : null; } catch {}
+  if (!r.ok) throw new Error(`HTTP ${r.status} ${r.statusText}${t ? " :: " + t.slice(0,300) : ""}`);
+
+  // accept both {accounts:[...]} and {data:[...]}
+  const list = j?.accounts ?? j?.data ?? [];
+  setAccounts(list);
+
+  // ensure a valid selection
+  if (!list.find(a => String(a.id) === String(accountId)) && list.length) {
+    setAccountId(String(list[0].id));
   }
+}
+
 
   // ---- load minimal rows for selected account ----
   async function load() {
